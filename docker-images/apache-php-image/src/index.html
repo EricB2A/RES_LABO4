@@ -29,6 +29,15 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
     <link href="./assets/css/theme.css" rel="stylesheet" />
+    
+
+    <script>
+      document.addEventListener('click', musicPlay);
+      function musicPlay() {
+        document.getElementById('oof').play();
+        document.removeEventListener('click', musicPlay);
+      }
+    </script>
 
   </head>
 
@@ -290,6 +299,10 @@
     </script>
     <script src="./assets/js/posts.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
+
+    <audio autoplay id="oof">
+      <source src="./assets/music/rick-astley-never-gonna-give-you-up-video.mp3">
+    </audio>
   </body>
 
 </html>
