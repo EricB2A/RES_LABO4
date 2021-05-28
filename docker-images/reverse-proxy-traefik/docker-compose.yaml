@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+
+    traefik:
+        image: "traefik:v2.4"
+        container_name: "traefik"
+        command:
+        - "--log.level=DEBUG"
+        - "--api.insecure=true"
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+        - "--entrypoints.web.address=:80"
+        ports:
+        - "80:80"
+        - "8080:8080"
+        volumes:
+        - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    apache:
+        image: "poubelle/apache"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.apache.rule=Host(`poubel.le`)"
+            - "traefik.http.routers.apache.entrypoints=web"
+
+
+    express:
+        image: "poubelle/express"
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.services.express.loadbalancer.server.port=3000"
+            - "traefik.http.routers.express.rule=Host(`poubel.le`) && Path(`/api/posts`)"
+            - "traefik.http.routers.express.entrypoints=web"
+            - "traefik.http.middlewares.test-replacepath.replacepath.path=/"
+            - "traefik.http.routers.express.middlewares=test-replacepath"
+            
