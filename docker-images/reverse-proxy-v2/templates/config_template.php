@@ -1,6 +1,6 @@
 <?php
-$expressIp = getenv("DYNAMIC_APP_IP");
-$apacheIp = getenv("STATIC_APP_IP");
+$expressIp = getenv("BACKEND_APP_IP");
+$apacheIp = getenv("FRONTEND_APP_IP");
 ?>
 
 <VirtualHost *:80>

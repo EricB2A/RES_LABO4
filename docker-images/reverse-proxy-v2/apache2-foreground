@@ -38,8 +38,8 @@ for e in "${!APACHE_@}"; do
 done
 
 echo "Setup for RES labo..."
-echo "Static apache  : $STATIC_APP_IP"
-echo "Static express : $DYNAMIC_APP_IP"
+echo "Static apache  : $FRONTEND_APP_IP"
+echo "Static express : $BACKEND_APP_IP"
 php /var/apache2/config_template.php > /etc/apache2/sites-available/001-reverse.conf
 echo "...End Res labo config."
 
