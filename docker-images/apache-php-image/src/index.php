@@ -98,6 +98,7 @@
               <h5 id="post_title" class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">waiting...</h5>
               <p id="post_content" class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">waiting...</p>
               <p id="server_ip" class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">waiting...</p>
+              <p class="fs-3 fs-lg-5 lh-sm mb-0 text-uppercase">HTML served by: <?php print $_SERVER['SERVER_ADDR'] ?> </p>
             </div>
           </div>
           <div class="row flex-center h-100">
