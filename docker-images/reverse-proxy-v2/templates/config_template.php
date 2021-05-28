@@ -8,7 +8,7 @@ $apacheIp = getenv("STATIC_APP_IP");
 ServerName poubel.le
 
 # Serveur API 
-ProxyPass '/api/posts/' 'http://<?php print "$expressIp";?> /'
+ProxyPass '/api/posts/' 'http://<?php print "$expressIp";?>/'
 ProxyPassReverse '/api/posts/' 'http://<?php print "$expressIp";?>/'
 
 # Serveur frontend

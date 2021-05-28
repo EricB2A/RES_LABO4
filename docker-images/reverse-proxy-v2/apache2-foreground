@@ -40,7 +40,7 @@ done
 echo "Setup for RES labo..."
 echo "Static apache  : $STATIC_APP_IP"
 echo "Static express : $DYNAMIC_APP_IP"
-php /var/apache2/templates/config_template.php > /etc/apache2/sites-available/001-reverse.conf
+php /var/apache2/config_template.php > /etc/apache2/sites-available/001-reverse.conf
 echo "...End Res labo config."
 
 exec apache2 -DFOREGROUND "$@"
