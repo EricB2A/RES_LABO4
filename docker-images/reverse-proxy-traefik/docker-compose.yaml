@@ -17,13 +17,14 @@ services:
         volumes:
         - "/var/run/docker.sock:/var/run/docker.sock:ro"
     apache:
-        image: "poubelle/apache"
+        image: "poubelle/apache-php"
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.apache.rule=Host(`poubel.le`)"
             - "traefik.http.routers.apache.entrypoints=web"
-
-
+            - "traefik.http.services.apache.loadBalancer.sticky.cookie=true"
+            - "traefik.http.services.apache.loadBalancer.sticky.cookie.name=sticky-apache"
+            
     express:
         image: "poubelle/express"
         labels:
@@ -33,4 +34,7 @@ services:
             - "traefik.http.routers.express.entrypoints=web"
             - "traefik.http.middlewares.test-replacepath.replacepath.path=/"
             - "traefik.http.routers.express.middlewares=test-replacepath"
+            - "traefik.http.services.express.loadBalancer.sticky.cookie=true"
+            - "traefik.http.services.express.loadBalancer.sticky.cookie.name=sticky-express"
+
             
