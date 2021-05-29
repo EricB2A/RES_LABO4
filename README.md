@@ -17,6 +17,8 @@ Vous trouverez ci-dessous l'emplacement de la réalisation de chaque étape.
 ## Prérequis :
 - Docker (version 20.10.6)
 
+Veuillez noter que nous éditons notre fichier *etc/hosts* afin de pouvoir associer notre nom de domaine **poubel.le** à localhost.
+
 ## Éape 1. Serveur HTTP statique
 Cette étape a pour but de mettre en place uns erveur apache httpd servant du contenu via le protocole HTTP. Notre serveur HTTP est dockerisé et utilise l'image de base [php])(https://hub.docker.com/_/php). 
 
@@ -60,5 +62,34 @@ docker build -t poubelle/express .
 docker run -p 9090:3000 poubelle/express
 
 ```
+Format de réponse : 
+```json
+{
+   "data":[
+      {
+         "title":"...",
+         "author":"Isaiah Perry",
+         "comments":[
+            {
+               "comment":"...",
+               "author":"Lottie French",
+               "date":"2089-09-21T19:38:00.626Z"
+            },
+            {
+               "comment":"...",
+               "author":"Hester Perez",
+               "date":"2035-06-06T23:36:12.821Z"
+            }
+         ]
+      }
+   ],
+   "serverIp":"172.17.0.2"
+}
+```
+Veuillez noter que le serveur nous renvoie en réponse son adresse IP. On utilisera cette information un peu plus tard.
 
-TODO postman...
+Ainsi, une simple requête netcat devrait permettre de retrouver des informations du serveur.
+```bash
+nc poubel.le 9090
+GET / HTTP/1.1 CRLF CRLF
+```
