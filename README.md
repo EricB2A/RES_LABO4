@@ -137,5 +137,8 @@ Afin de tester le round-robin, il suffit de lancer le reverse-proxy avec les com
 ### Test du Sticky-session
 Pour valider cette partie, même principe que pour le test du round-robin, les observations cependant diffèrent. l'adresse ip du serveur ainsi que celle du serveur apache ne changent pas. Pour les voir changer, il suffit de supprimer les cookies `sticky-express` & `sticky-apache` et de rafraichir la page. Ou, plus simplement lancé une session de navigation privé et de retourner sur le site (ATTENTION pour les voir changer plusieurs fois avec la navigation privée, il faudra refermer à chaque fois la session privé précédente).
 
+## Bonus #3 Dynamic cluster management
+Nous n'avons pas effectuer plus de configuration avec `Traefik` pour cette partie. Cependant, il semble le gérer plus ou moins de base. Si on essaie de supprimer une machine utilise par le reverse-proxy. Ce dernier ne s'en sert plus pour les requêtes futures.
 
-
+## Bonus #4 Management UI
+TODO 
