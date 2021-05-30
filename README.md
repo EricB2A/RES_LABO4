@@ -143,9 +143,9 @@ docker build -t poubelle/proxyv2 .
 docker run -e BACKEND_APP_IP=172.17.0.3:3000 -e FRONTEND_APP_IP=172.17.0.2 -p 8080:80
 ```
 
-Et voilà 💥 :boom:
+![étape 5 - affichage dynamique](./assets/etape5-dynamique.gif)
 
-
+Et voilà :boom:
 
 
 ## Bonus #1 & #2. Load balancing round-robin & sticky sessions.
