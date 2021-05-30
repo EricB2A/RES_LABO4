@@ -30,7 +30,7 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.http.services.express.loadbalancer.server.port=3000"
-            - "traefik.http.routers.express.rule=Host(`poubel.le`) && Path(`/api/posts`)"
+            - "traefik.http.routers.express.rule=Host(`poubel.le`) && Path(`/api/posts/`)"
             - "traefik.http.routers.express.entrypoints=web"
             - "traefik.http.middlewares.test-replacepath.replacepath.path=/"
             - "traefik.http.routers.express.middlewares=test-replacepath"

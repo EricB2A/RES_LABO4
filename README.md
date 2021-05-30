@@ -10,8 +10,8 @@ Pour chaque étape implémentée, vous trouverez ci-dessous le répertoire assoc
 | 4. Requetes AJAX                               | [apache-php-image/src/assets/js/posts.js](docker-images/apache-php-image/src/assets/js/posts.js) |
 | 5. Reverse proxy dynamique                     | [reverse-proxy-v2](docker-images/reverse-proxy-v2)                                               |
 | Bonus 1. Load balancing : multiple serveurs    | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/)                                    |
-| Bonus 2. Load balancing : rr vs sticky session | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/) |
-| Bonus 3. Gestionnaire de cluster dynamique     | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/) |
+| Bonus 2. Load balancing : rr vs sticky session | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/)                                    |
+| Bonus 3. Gestionnaire de cluster dynamique     | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/)                                    |
 | Bonus 4. Gestionnaire UI                       | [portainer](docker-images/portainer/)                                                            |
 
 ## Prérequis. 
