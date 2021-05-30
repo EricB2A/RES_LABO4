@@ -10,11 +10,11 @@ Pour chaque étape implémentée, vous trouverez ci-dessous le répertoire assoc
 | 4. Requetes AJAX                               | [apache-php-image/src/assets/js/posts.js](docker-images/apache-php-image/src/assets/js/posts.js) |
 | 5. Reverse proxy dynamique                     | [reverse-proxy-v2](docker-images/reverse-proxy-v2)                                               |
 | Bonus 1. Load balancing : multiple serveurs    | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/)                                    |
-| Bonus 2. Load balancing : rr vs sticky session | TODO                                                                                             |
-| Bonus 3. Gestionnaire de cluster dynamique     | TODO                                                                                             |
+| Bonus 2. Load balancing : rr vs sticky session | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/) |
+| Bonus 3. Gestionnaire de cluster dynamique     | [reverse-proxy-traefik](docker-images/reverse-proxy-traefik/) |
 | Bonus 4. Gestionnaire UI                       | [portainer](docker-images/portainer/)                                                            |
 
-## Prérequis :
+## Prérequis. 
 - Docker (version 20.10.6)
 
 Veuillez noter que nous éditons notre fichier *etc/hosts* afin de pouvoir associer notre nom de domaine **poubel.le** à localhost.
@@ -155,6 +155,7 @@ Dans cette étape, nous étendons notre infrastructure avec du loadbalancing. Po
 
 Pour lancer notre reverse proxy avec du load balancing, il suffit de se diriger dans le dossier `./docker-images/reverse-proxy-traefik` et de lancer la commandes:
 ```bash
+cd docker-images/reverse-proxy-traefik
 docker-compose up --scale express=<NB_EXPRESS_INSTANCE> --scale apache=<NB_APACHE_INSTANCE>
 # ou
 docker compose up --scale express=<NB_EXPRESS_INSTANCE> --scale apache=<NB_APACHE_INSTANCE> # pour les hérétiques
@@ -202,9 +203,9 @@ Dans le but de pouvoir manager notre infrastructure docker de manière convivial
 - Supprimer un container
 - Supprimer une image
 - Créer un container avec une image
-- etc
+- Et pleins d'autres fonctionnalités que nous n'avons pas eu le temps d'essayer :cry:
 
-Egalement implémenter dans un docker, cette application se lance au moyen des commandes: 
+Également implémentée dans un docker, cette application se lance au moyen des commandes: 
 ```bash
 cd ./docker-images/portainer
 docker-compose up
