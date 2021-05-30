@@ -107,7 +107,7 @@ docker run -p 8080:80 poubelle/proxyv1
 ## Étape 4. Requête AJAX. 
 Nous allons maintenant utiliser [JQuery](https://jquery.com/) afin de faire une requête AJAX !
 L'implémentation de cette fonctionnalitée est présente dans le script javascript [posts.js](./docker-images/apache-php-image/src/assets/js/posts.js).
-Les données de posts vinnent de l'API et sont affichés dans la page principale, à la balise #dynamique.
+Les données de posts viennent de l'API et sont affichées dans la page principale, à la balise #dynamique.
 
 ![étape 3 - ajax](assets/etape3-ajax.png)  
 
@@ -115,7 +115,7 @@ Les données de posts vinnent de l'API et sont affichés dans la page principale
 ## Étape 5. Reverse proxy dynamique. 
 Nous souhaitons maintenant éviter d'utiliser des données hardcodées dans la configuration du reverse proxy. Nous avons donc créé une nouvelle image docker, [reverse-proxy-v2](./docker-images/reverse-proxy-v2/Dockerfile). 
 
-Notre configuration va se  baser sur les variables d'environnements **BACKEND_API_APP** et **FRONTEND_API_APP**, qui définissent les adresses IP des serveurs statique et dynamique
+Notre configuration va se  baser sur les variables d'environnements **BACKEND_API_APP** et **FRONTEND_API_APP**, qui définissent les adresses IP des serveurs statiques et dynamiques
 On utilise un [script php](./docker-images/reverse-proxy-v2/templates/config_template.php) afin réécrire la configuration apache.
 
 | Variable d'environnement | Serveur cible                             | Exemple    |
@@ -132,7 +132,7 @@ docker run poubelle/apache-php
 docker ps # le container est confident_swanson
 docker inspect confident_swanson | grep -i "IPADDRESS" # 172.17.0.3
 ```
-Et de la même manière, on récupère l'adresse du container express, qui est 172.17.0.2.
+Et de la même manière, on récupère l'adresse du container Express, qui est 172.17.0.2.
 
 Pour lancer notre reverse proxy dynamique, il nous suffit de lancer les commandes suivantes : 
 ```bash
