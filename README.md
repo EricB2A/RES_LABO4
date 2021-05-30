@@ -1,5 +1,5 @@
 # RES_LABO4
-## Étapes et répertoires  
+## Étapes et répertoires    
 
 Pour chaque étape implémentée, vous trouverez ci-dessous le répertoire associé. On espère que ça vous simplifiera un peu les choses :wink:
 
@@ -21,6 +21,7 @@ Pour chaque étape implémentée, vous trouverez ci-dessous le répertoire assoc
 Veuillez noter que nous éditons notre fichier *etc/hosts* afin de pouvoir associer notre nom de domaine **poubel.le** à localhost. À priori, utiliser **localhost** devrait aboutir aux mêmes résultats.
 
 ## Étape 1. Serveur HTTP statique  
+
 Cette étape a pour but de mettre en place uns erveur apache httpd servant du contenu via le protocole HTTP. Notre serveur HTTP est dockerisé et utilise l'image de base [php](https://hub.docker.com/_/php). 
 
 **Mais Jamy, comment on lance notre container Docker ?** :cold_sweat:
@@ -35,6 +36,7 @@ Notons que nous mappons le port 8080 (accessible depuis le navigateur).
 Et en vous rendant à l'adresse [localhost:8080](localhost:8080), le serveur *devrait* tourner et servir une page web statique ! 
 
 ## Étape 2. Serveur HTTP dynamique
+
 Dans cette étape, nous mettons en place une application [Express.js](https://expressjs.com/) dont le comportement, à l'instar d'une API retourne un JSON de données pour une requête GET. 
 Nous utilisons également la librairie [Chance](https://www.npmjs.com/package/chance) pour générer du contenu aléatoire. Ces deux librairies sont installées via le gestionnaire de paquet NodeJS [NPM](https://www.npmjs.com/). 
 Vous trouverez la configuration minimale du projet dans le fichier [`package.json`](docker-images/express-image/src/package.json). 
@@ -93,22 +95,26 @@ nc localhost 9090
 GET / HTTP/1.1 CRLF CRLF
 ```
 
-## Étape 3. Reverse proxy apache  
-![étape 3 - schema](assets/etape3_schema.png)
+## Étape 3. Reverse proxy apache
+
+![étape 3 - schema](assets/etape3_schema.png)  
 Nous allons maintenant mettre en place un reverse proxy afin d'avoir un point d'entrée unique à notre architecture de serveurs. Ce reserve proxy est également mis en place via un container Docker.
 
 ```bash
-cd docker-images/reverse-proxy-v1
-docker build -t poubelle/proxyv1 .
+docker run poubelle/apache-php
+docker run poubelle/express
+docker build -t poubelle/express-proxyv1 .
 docker run -p 8080:80 poubelle/proxyv1
 ```
-**TODO: à finir! **
 
-## Étape 4. Requête AJAX
-Nous allons maintenant utiliser [JQuery](https://jquery.com/) afin de faire une requête AJAX ! 
+## Étape 4. Requête AJAX 
+
+Nous allons maintenant utiliser [JQuery](https://jquery.com/) afin de faire une requête AJAX !
 
 
-## Étape 5. Reverse proxy dynamique  
+## Étape 5. Reverse proxy dynamique   
+
+
 
 ## Bonus #1 & #2. Load balancing round-robin & sticky sessions.
 Dans cette étape, nous étendons notre infrastructure avec du loadbalancing. Pour ce faire, nous avons décidé d'utiliser l'outil [Traefik](https://doc.traefik.io/traefik/) comme reverse proxy. Nous avons donc délaissé notre version fait maison réalisée lors des étapes précédentes.
