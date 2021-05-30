@@ -94,22 +94,57 @@ GET / HTTP/1.1 CRLF CRLF
 ```
 
 ## Étape 3. Reverse proxy apache. 
-![étape 3 - schema](assets/etape3_schema.png)  
-Nous allons maintenant mettre en place un reverse proxy afin d'avoir un point d'entrée unique à notre architecture de serveurs. Ce reserve proxy est également mis en place via un container Docker.
+![étape 3 - schema](assets/etape3-schema.png)  
+Nous allons maintenant mettre en place un reverse proxy afin d'avoir un point d'entrée unique à notre architecture de serveurs. Ce reverse proxy que nous nommons `reverse-proxy-v1` est également mis en place via un container Docker.
 
 ```bash
 docker run poubelle/apache-php
 docker run poubelle/express
-docker build -t poubelle/express-proxyv1 .
+docker build -t poubelle/proxyv1 .
 docker run -p 8080:80 poubelle/proxyv1
 ```
 
 ## Étape 4. Requête AJAX. 
-
 Nous allons maintenant utiliser [JQuery](https://jquery.com/) afin de faire une requête AJAX !
+L'implémentation de cette fonctionnalitée est présente dans le script javascript [posts.js](./docker-images/apache-php-image/src/assets/js/posts.js).
+Les données de posts vinnent de l'API et sont affichés dans la page principale, à la balise #dynamique.
+
+![étape 3 - ajax](assets/etape3-ajax.png)  
 
 
 ## Étape 5. Reverse proxy dynamique. 
+Nous souhaitons maintenant éviter d'utiliser des données hardcodées dans la configuration du reverse proxy. Nous avons donc créé une nouvelle image docker, [reverse-proxy-v2](./docker-images/reverse-proxy-v2/Dockerfile). 
+
+Notre configuration va se  baser sur les variables d'environnements **BACKEND_API_APP** et **FRONTEND_API_APP**, qui définissent les adresses IP des serveurs statique et dynamique
+On utilise un [script php](./docker-images/reverse-proxy-v2/templates/config_template.php) afin réécrire la configuration apache.
+
+| Variable d'environnement | Serveur cible                             | Exemple    |
+|--------------------------|-------------------------------------------|------------|
+| FRONTEND_APP_IP          | Défini le serveur apache httpd.           | 172.17.0.2 |
+| BACKEND_APP_IP           | Défini le serveur express, servant l'api. | 172.17.0.3 |
+
+Maintenant, nous devons adapter notre commande pour lancer notre container Docker afin de setter les variables d'environnement mentionnés ci-dessous.
+
+Pour commencer, il de lancer les containers apache et express, sans spécifier de paramètre et de récupérer les IP des containers lancés.
+Prenons l'exemple du container apache-php : 
+```bash
+docker run poubelle/apache-php
+docker ps # le container est confident_swanson
+docker inspect confident_swanson | grep -i "IPADDRESS" # 172.17.0.3
+```
+Et de la même manière, on récupère l'adresse du container express, qui est 172.17.0.2.
+
+Pour lancer notre reverse proxy dynamique, il nous suffit de lancer les commandes suivantes : 
+```bash
+docker run poubelle/apache-php
+docker run poubelle/express
+
+docker build -t poubelle/proxyv2 .
+docker run -e BACKEND_APP_IP=172.17.0.3:3000 -e FRONTEND_APP_IP=172.17.0.2 -p 8080:80
+```
+
+Et voilà 💥 :boom:
+
 
 
 
@@ -149,7 +184,7 @@ Il faut noter que `Traefik` utilise par défaut l'algorithme `round-robin` pour 
 ### Test du Round-robin
 Afin de tester le round-robin, il suffit de lancer le reverse-proxy avec les commandes susmentionnées et de se diriger vers notre magnifique site: `http://poubel.le`. Puis, de se déplacer dans la section dynamique. Cette dernière récupère et affiche à intervalle de 5 secondes les données générée par l'API mais encore l'adresse ip de l'API ayant répondu ainsi que celle du serveur apache(& php) ayant fourni le front-end(HTML). Il suffit donc d'observer que à chaque réponse de la requête AJAX reçu, l'adresse ip de l'application Express change. En ce qui concerne l'adresse ip du serveur apache, il suffit de raffraichir le site pour voir l'adresse ip changée. 
 
-![Adresses ip des différents services affichés sur la page web](./imgs/loadbalancing.png)
+![bonus 1 - adresses ip des différents services affichés sur la page web](./assets/bonus1-loadbalancing.png)
 
 
 ### Test du Sticky-session
