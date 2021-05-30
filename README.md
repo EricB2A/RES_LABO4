@@ -23,7 +23,7 @@ Veuillez noter que nous éditons notre fichier *etc/hosts* afin de pouvoir assoc
 
 Cette étape a pour but de mettre en place un serveur apache httpd servant du contenu via le protocole HTTP. Notre serveur HTTP est dockerisé et utilise l'image de base [php](https://hub.docker.com/_/php). 
 
-**Mais Jamy, comment on lance notre container Docker ?** :cold_sweat:
+**Mais Jamy, comment on lance notre container Docker ?** :cold_sweat:  
 Rien de plus facile ! Rendez-vous dans le répertorie [apache-php-image](docker-images/apache-php-image), build l'image et lancer le container ! 
 ```bash
 cd docker-images/apache-php-image
@@ -35,7 +35,7 @@ Notons que nous mappons le port 8080 (accessible depuis le navigateur).
 Et en vous rendant à l'adresse [localhost:8080](localhost:8080), le serveur *devrait* tourner et servir une page web statique ! 
 
 ## Étape 2. Serveur HTTP dynamique. 
-Dans cette étape, nous mettons en place une application [Express.js](https://expressjs.com/) dont le comportement, à l'instar d'une API retourne un JSON de données pour une requête GET. 
+Dans cette étape, nous mettons en place une application [Express.js](https://expressjs.com/) dont le comportement, à l'instar d'une API, retourne un JSON de données pour une requête GET. 
 Nous utilisons également la librairie [Chance](https://www.npmjs.com/package/chance) pour générer du contenu aléatoire. Ces deux librairies sont installées via le gestionnaire de paquet NodeJS [NPM](https://www.npmjs.com/). 
 Vous trouverez la configuration minimale du projet dans le fichier [`package.json`](docker-images/express-image/src/package.json). 
 Notons que nous utilisons la version 1.1.7 (ou compatible) pour Chance et la version 4.17.1 (ou compatible) pour express.
